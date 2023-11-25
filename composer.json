@@ -1,0 +1,51 @@
+{
+  "name": "trehinos/thor-http",
+  "type": "library",
+  "description": "Une définition d'un serveur HTTP avec routage, sécurité et cycle Request->Controller->Response",
+  "minimum-stability": "stable",
+  "license": "MIT",
+  "autoload": {
+    "psr-4": {
+      "Thor\\Http\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Tests\\": "tests/"
+    }
+  },
+  "authors": [
+    {
+      "name": "Sébastien GELDREICH",
+      "email": "trehinos@gmail.com"
+    }
+  ],
+  "repositories": {
+    "trehinos/thor-common": {
+      "type": "vcs",
+      "url": "https://asgard.trehinos.eu/thor2/thor-common"
+    },
+    "trehinos/thor-filesystem": {
+      "type": "vcs",
+      "url": "https://asgard.trehinos.eu/thor2/thor-filesystem"
+    },
+    "trehinos/thor-process": {
+      "type": "vcs",
+      "url": "https://asgard.trehinos.eu/thor2/thor-process"
+    },
+    "trehinos/thor-pdo-extension": {
+      "type": "vcs",
+      "url": "https://asgard.trehinos.eu/thor2/thor-pdo-extension"
+    }
+  },
+  "require": {
+    "php": "^8.2",
+    "trehinos/thor-common": "dev-master",
+    "trehinos/thor-process": "dev-master",
+    "trehinos/thor-filesystem": "dev-master",
+    "trehinos/thor-pdo-extension": "dev-master"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "10.*"
+  }
+}
