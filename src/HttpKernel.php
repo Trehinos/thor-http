@@ -69,7 +69,7 @@ class HttpKernel implements KernelInterface
         $responseStatus = $response->getStatus()->normalized();
         $responseCode = $response->getStatus()->value;
 
-            ob_clean(); // Prevent accidental echoes
+        ob_clean(); // Prevent accidental echoes
 
         http_response_code($responseCode);                                      // Emit status code
 
