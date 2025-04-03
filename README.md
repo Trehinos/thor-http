@@ -1,3 +1,3 @@
 # License
-&copy; 2023 Sébastien Geldreich
+&copy; 2025 Sébastien Geldreich
 Distributed under the MIT License.
