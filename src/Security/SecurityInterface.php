@@ -1,9 +1,8 @@
 <?php
 
-namespace Thor\Security;
+namespace Thor\Http\Security;
 
 use Thor\Http\Security\Authentication\AuthenticatorInterface;
-use Thor\Http\Security\Firewall;
 use Thor\Http\Security\Identity\IdentityInterface;
 use Thor\Http\Security\Identity\ProviderInterface;
 use Thor\Http\Server\MiddlewareInterface;

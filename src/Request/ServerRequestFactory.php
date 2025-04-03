@@ -2,7 +2,7 @@
 
 namespace Thor\Http\Request;
 
-use Thor\FileSystem\Stream\Stream;
+use Thor\Common\FileSystem\Stream\Stream;
 use Thor\Http\ProtocolVersion;
 use Thor\Http\Uri;
 

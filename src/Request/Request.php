@@ -7,8 +7,8 @@ use Thor\Http\Message;
 use thor\Http\UriInterface;
 use JetBrains\PhpStorm\Pure;
 use Thor\Http\ProtocolVersion;
-use Thor\FileSystem\Stream\Stream;
-use Thor\FileSystem\Stream\StreamInterface;
+use Thor\Common\FileSystem\Stream\Stream;
+use Thor\Common\FileSystem\Stream\StreamInterface;
 
 
 /**
@@ -26,7 +26,7 @@ class Request extends Message implements RequestInterface
     /**
      * @param ProtocolVersion                         $version
      * @param array                                   $headers
-     * @param \Thor\FileSystem\Stream\StreamInterface $body
+     * @param StreamInterface $body
      * @param HttpMethod                              $method
      * @param UriInterface                            $target
      */

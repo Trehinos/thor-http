@@ -4,8 +4,12 @@ namespace Thor\Http\Security;
 
 use JetBrains\PhpStorm\Immutable;
 use Thor\Http\Response\ResponseFactory;
-use Thor\Http\{Routing\Router, Response\ResponseInterface, Request\ServerRequestInterface, Server\MiddlewareInterface, Server\RequestHandlerInterface};
-use Thor\Security\SecurityInterface;
+use Thor\Http\{Routing\Router,
+    Response\ResponseInterface,
+    Request\ServerRequestInterface,
+    Security\Authorization\HasPermissions,
+    Server\MiddlewareInterface,
+    Server\RequestHandlerInterface};
 
 /**
  * Thor firewall.
@@ -101,7 +105,7 @@ class Firewall implements RequestHandlerInterface, MiddlewareInterface
         if ($routeName !== null) {
             $route = $this->router->getRoute($routeName);
             $identity = $this->security->getCurrentIdentity();
-            if ($this->userIsAuthenticated && ($route->authorization === null || ($route->authorization !== null && $identity instanceof HasPermissions && $route->authorization->isAuthorized($identity)))) {
+            if ($this->userIsAuthenticated && ($route->authorization === null || ($identity instanceof HasPermissions && $route->authorization->isAuthorized($identity)))) {
                 return $handler->handle($request);
             }
         }

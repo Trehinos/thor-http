@@ -2,10 +2,10 @@
 
 namespace Thor\Http\Request;
 
+use Thor\Common\FileSystem\Stream\StreamInterface;
 use thor\Http\UriInterface;
 use JetBrains\PhpStorm\Pure;
 use Thor\Http\ProtocolVersion;
-use Thor\FileSystem\Stream\StreamInterface;
 
 /**
  * Describes an HTTP Request send to a Server.

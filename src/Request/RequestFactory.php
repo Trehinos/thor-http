@@ -2,6 +2,8 @@
 
 namespace Thor\Http\Request;
 
+use Exception;
+use JsonException;
 use Thor\Http\Headers;
 use Thor\Http\UriInterface;
 
@@ -55,8 +57,8 @@ final class RequestFactory
                    ->contentLength(strlen($data))
                    ->userAgent(self::$userAgent)
                    ->date()
-                   ->merge($headers)
-                   ->get()
+                   ->merge_with_array($headers)
+                   ->all()
         );
     }
 
@@ -96,7 +98,8 @@ final class RequestFactory
      * @param string|null  $boundary
      *
      * @return Request
-     * @throws \Exception
+     *
+     * @throws Exception
      */
     public static function formPost(
         UriInterface $uri,
@@ -144,7 +147,8 @@ final class RequestFactory
      * @param array        $headers
      *
      * @return Request
-     * @throws \JsonException
+     *
+     * @throws JsonException
      */
     public static function jsonPost(UriInterface $uri, array $data, array $headers = []): Request
     {
@@ -176,7 +180,7 @@ final class RequestFactory
      * @param array        $headers
      *
      * @return Request
-     * @throws \JsonException
+     * @throws JsonException
      */
     public static function jsonPut(UriInterface $uri, array $data, array $headers = []): Request
     {

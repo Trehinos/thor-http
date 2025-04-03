@@ -24,13 +24,13 @@ final class Route
     private array $filledParams = [];
 
     /**
-     * @param string|null                                          $routeName
-     * @param string|null                                          $path
-     * @param HttpMethod|HttpMethod[]                              $method
-     * @param array                                                $parameters
-     * @param string|null                                          $controllerClass
-     * @param string|null                                          $controllerMethod
-     * @param \Thor\Http\Security\Authorization\Authorization|null $authorization
+     * @param string|null             $routeName
+     * @param string|null             $path
+     * @param HttpMethod|HttpMethod[] $method
+     * @param array                   $parameters
+     * @param string|null             $controllerClass
+     * @param string|null             $controllerMethod
+     * @param Authorization|null      $authorization
      */
     public function __construct(
         private ?string $routeName = null,
@@ -89,12 +89,9 @@ final class Route
         }
 
         if (preg_match("!^$path$!", $pathInfo, $matches)) {
-            $parameters = [];
-            foreach ($matches as $mKey => $mValue) {
-                if (!is_numeric($mKey)) {
-                    $parameters[$mKey] = $mValue;
-                }
-            }
+            $parameters = array_filter($matches, function ($mKey) {
+                return !is_numeric($mKey);
+            }, ARRAY_FILTER_USE_KEY);
             $this->filledParams = $parameters;
             return true;
         }

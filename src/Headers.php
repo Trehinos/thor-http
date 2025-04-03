@@ -2,9 +2,9 @@
 
 namespace Thor\Http;
 
-use Exception;
 use DateTimeInterface;
 use DateTimeImmutable;
+use Thor\Maybe\Option;
 
 final class Headers
 {
@@ -20,7 +20,7 @@ final class Headers
     }
 
     /**
-     * @param array $headers
+     * @param array<string, string | string[]> $headers
      *
      * @return static
      */
@@ -32,6 +32,8 @@ final class Headers
     }
 
     /**
+     * Clear all headers in the internal array as a fluid interface.
+     *
      * @return $this
      */
     public function clear(): self
@@ -41,9 +43,34 @@ final class Headers
     }
 
     /**
+     * @param string            $name
+     * @param string | string[] $value
+     *
+     * @return $this
+     */
+    public function set(string $name, string|array $value): self
+    {
+        $this->headers[$name] = $value;
+        return $this;
+    }
+
+    /**
+     * @param string $name
+     *
+     * @return Option<string | string[]>
+     */
+    public function get(string $name): Option
+    {
+        if (!array_key_exists($name, $this->headers)) {
+            return Option::none();
+        }
+        return Option::some($this->headers[$name]);
+    }
+
+    /**
      * @return array
      */
-    public function get(): array
+    public function all(): array
     {
         return $this->headers;
     }
@@ -55,7 +82,7 @@ final class Headers
      */
     public function host(string $host): self
     {
-        return self::merge(['Host' => $host]);
+        return self::merge_with_array(['Host' => $host]);
     }
 
     /**
@@ -63,7 +90,7 @@ final class Headers
      *
      * @return $this
      */
-    public function merge(array $headersToAdd): self
+    public function merge_with_array(array $headersToAdd): self
     {
         foreach ($headersToAdd as $name => $value) {
             if (array_key_exists($name, $this->headers)) {
@@ -87,6 +114,11 @@ final class Headers
         return $this;
     }
 
+    public function merge(Headers $headers): self
+    {
+        return self::merge_with_array($headers->all());
+    }
+
     /**
      * @param DateTimeInterface $dateTime
      *
@@ -94,7 +126,7 @@ final class Headers
      */
     public function date(DateTimeInterface $dateTime = new DateTimeImmutable()): self
     {
-        return self::merge(
+        return self::merge_with_array(
             [
                 'Date' => $dateTime->format(DateTimeInterface::RFC7231),
             ]
@@ -108,7 +140,7 @@ final class Headers
      */
     public function userAgent(string $userAgent): self
     {
-        return self::merge(['User-Agent' => $userAgent]);
+        return self::merge_with_array(['User-Agent' => $userAgent]);
     }
 
     /**
@@ -118,7 +150,7 @@ final class Headers
      */
     public function contentType(string $mimeType): self
     {
-        return self::merge(['Content-Type' => $mimeType]);
+        return self::merge_with_array(['Content-Type' => $mimeType]);
     }
 
     /**
@@ -128,25 +160,7 @@ final class Headers
      */
     public function contentLength(int $length): self
     {
-        return self::merge(['Content-Length' => $length]);
-    }
-
-    /**
-     * @param string $type
-     * @param array  $data
-     *
-     * @return Headers
-     *
-     * @throws Exception
-     */
-    public function authorization(string $type, array $data): self
-    {
-        return self::merge(
-            match ($type) {
-                self::AUTHORIZATION_BEARER => ['Authorization' => "Bearer {$data['token']}"],
-                default                    => throw new Exception("Invalid Authorization type $type")
-            }
-        );
+        return self::merge_with_array(['Content-Length' => $length]);
     }
 
 }

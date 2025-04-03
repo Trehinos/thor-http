@@ -118,7 +118,7 @@ class Uri implements UriInterface
         }
 
         $encodedUrl = preg_replace_callback(
-            '%[^:/@?&=#]+%usD',
+            '%[^:/@?&=#]+%u',
             static function ($matches) {
                 return urlencode($matches[0]);
             },

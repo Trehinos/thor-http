@@ -7,10 +7,10 @@ use Thor\Common\Configuration\Configuration;
 use Thor\Database\PdoExtension\Handler;
 use Thor\Database\PdoExtension\PdoCollection;
 use Thor\Database\PdoExtension\Requester;
-use Thor\Security\SecurityInterface;
 use JetBrains\PhpStorm\ExpectedValues;
 use Thor\Http\Response\ResponseFactory;
-use Thor\Http\{Uri,
+use Thor\Http\{Security\SecurityInterface,
+    Uri,
     UriInterface,
     Routing\Route,
     Routing\Router,
